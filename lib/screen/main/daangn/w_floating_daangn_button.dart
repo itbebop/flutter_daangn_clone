@@ -1,6 +1,7 @@
 import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/screen/main/s_main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +15,7 @@ class FloatingDaangnButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const isExpanded = true;
+    const isExpanded = false;
 
     return Stack(
       children: [
@@ -28,22 +29,26 @@ class FloatingDaangnButton extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                width: 160,
-                padding: const EdgeInsets.all(15),
-                margin: const EdgeInsets.only(right: 15, bottom: 10),
-                decoration: BoxDecoration(
-                  color: context.appColors.floatingActionLayer,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    _floatItem('알바', '$basePath/fab/fab_01.png'),
-                    _floatItem('과외/클래스', '$basePath/fab/fab_02.png'),
-                    _floatItem('농수산물', '$basePath/fab/fab_03.png'),
-                    _floatItem('부동산', '$basePath/fab/fab_04.png'),
-                    _floatItem('중고차', '$basePath/fab/fab_05.png'),
-                  ],
+              AnimatedOpacity(
+                duration: duration,
+                opacity: isExpanded ? 1 : 0,
+                child: Container(
+                  width: 160,
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.only(right: 15, bottom: 10),
+                  decoration: BoxDecoration(
+                    color: context.appColors.floatingActionLayer,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      _floatItem('알바', '$basePath/fab/fab_01.png'),
+                      _floatItem('과외/클래스', '$basePath/fab/fab_02.png'),
+                      _floatItem('농수산물', '$basePath/fab/fab_03.png'),
+                      _floatItem('부동산', '$basePath/fab/fab_04.png'),
+                      _floatItem('중고차', '$basePath/fab/fab_05.png'),
+                    ],
+                  ),
                 ),
               ),
               AnimatedContainer(
