@@ -1,6 +1,8 @@
 import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/widget/animated_width_collapse.dart';
+import 'package:fast_app_base/common/widget/w_tap.dart';
+import 'package:fast_app_base/screen/main/daangn/w_floating_daagn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/s_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,8 +16,8 @@ class FloatingDaangnButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const isExpanded = false;
-    const isSmall = false;
+    final isExpanded = ref.watch(FloatingActionButtonIsExpendedProvider);
+    final isSmall = ref.watch(FloatingActionButtonIsSmallProvider);
 
     return Stack(
       children: [
@@ -51,25 +53,32 @@ class FloatingDaangnButton extends ConsumerWidget {
                   ),
                 ),
               ),
-              AnimatedContainer(
-                duration: duration,
-                height: 60,
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                decoration: BoxDecoration(
-                  color: isExpanded ? context.appColors.floatingActionLayer : const Color(0xffff791f),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  AnimatedRotation(
-                    turns: isExpanded ? 0.125 : 0,
-                    duration: duration,
-                    child: const Icon(Icons.add),
+              Tap(
+                onTap: () {
+                  ref.read(FloatingActionButtonIsExpendedProvider.notifier).state = !isExpanded;
+                  ref.read(FloatingActionButtonIsSmallProvider.notifier).state = !isSmall;
+                  print(isExpanded);
+                },
+                child: AnimatedContainer(
+                  duration: duration,
+                  height: 60,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  decoration: BoxDecoration(
+                    color: isExpanded ? context.appColors.floatingActionLayer : const Color(0xffff791f),
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  AnimatedWidthCollapse(visible: !isSmall, duration: duration, child: '글쓰기'.text.make()),
-                ]),
-              ).pOnly(
-                bottom: MainScreenState.bottomNavigationBarHeight + context.viewPaddingBottom + 10,
-                right: 20,
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    AnimatedRotation(
+                      turns: isExpanded ? 0.125 : 0,
+                      duration: duration,
+                      child: const Icon(Icons.add),
+                    ),
+                    AnimatedWidthCollapse(visible: !isSmall, duration: duration, child: '글쓰기'.text.make()),
+                  ]),
+                ).pOnly(
+                  bottom: MainScreenState.bottomNavigationBarHeight + context.viewPaddingBottom + 10,
+                  right: 20,
+                ),
               ),
             ],
           ),
