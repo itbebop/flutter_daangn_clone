@@ -15,12 +15,14 @@ class FloatingDaangnButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isExpanded = ref.watch(FloatingActionButtonIsExpendedProvider);
-    final isSmall = ref.watch(FloatingActionButtonIsSmallProvider);
+    final floatingButtonState = ref.watch(floatingButtonStateProvider);
+    final isExpanded = floatingButtonState.isExpanded;
+    final isSmall = floatingButtonState.isSmall;
 
     return Stack(
       children: [
         IgnorePointer(
+          ignoring: !isExpanded,
           child: AnimatedContainer(
             duration: duration,
             color: isExpanded ? Colors.black.withOpacity(0.4) : Colors.transparent,
@@ -56,9 +58,7 @@ class FloatingDaangnButton extends ConsumerWidget {
               ),
               Tap(
                 onTap: () {
-                  ref.read(FloatingActionButtonIsExpendedProvider.notifier).state = !isExpanded;
-                  ref.read(FloatingActionButtonIsSmallProvider.notifier).state = !isSmall;
-                  print(isExpanded);
+                  ref.read(floatingButtonStateProvider.notifier).onTapButton(); // button이 눌러진 것만 알려주고 로직은 따로
                 },
                 child: AnimatedContainer(
                   duration: duration,

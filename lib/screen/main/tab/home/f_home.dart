@@ -1,13 +1,6 @@
-import 'package:fast_app_base/common/common.dart';
-import 'package:fast_app_base/common/widget/round_button_theme.dart';
-import 'package:fast_app_base/common/widget/w_round_button.dart';
-import 'package:fast_app_base/screen/dialog/d_message.dart';
 import 'package:fast_app_base/screen/main/daangn/w_floating_daagn_button.riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../dialog/d_color_bottom.dart';
-import '../../../dialog/d_confirm.dart';
 
 class HomeFragment extends ConsumerStatefulWidget {
   const HomeFragment({
@@ -24,12 +17,12 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
   @override
   void initState() {
     scrollController.addListener(() {
-      final isSmall = ref.read(FloatingActionButtonIsSmallProvider);
+      final floatingState = ref.read(floatingButtonStateProvider);
 
-      if (scrollController.position.pixels > 100 && !isSmall) {
-        ref.read(FloatingActionButtonIsSmallProvider.notifier).state = true;
-      } else if (scrollController.position.pixels < 100 && isSmall) {
-        ref.read(FloatingActionButtonIsSmallProvider.notifier).state = false;
+      if (scrollController.position.pixels > 100 && !floatingState.isSmall) {
+        ref.read(floatingButtonStateProvider.notifier).changeButtonSize(true);
+      } else if (scrollController.position.pixels < 100 && floatingState.isSmall) {
+        ref.read(floatingButtonStateProvider.notifier).changeButtonSize(false);
       }
     });
     super.initState();
