@@ -1,7 +1,6 @@
 import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/widget/animated_width_collapse.dart';
-import 'package:fast_app_base/common/widget/w_tap.dart';
 import 'package:fast_app_base/screen/main/daangn/w_floating_daagn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/s_main.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +20,11 @@ class FloatingDaangnButton extends ConsumerWidget {
 
     return Stack(
       children: [
-        AnimatedContainer(
-          duration: duration,
-          color: isExpanded ? Colors.black.withOpacity(0.4) : Colors.transparent,
+        IgnorePointer(
+          child: AnimatedContainer(
+            duration: duration,
+            color: isExpanded ? Colors.black.withOpacity(0.4) : Colors.transparent,
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,
