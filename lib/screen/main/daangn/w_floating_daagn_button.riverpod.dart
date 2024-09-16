@@ -11,6 +11,9 @@ class FloatingButtonStateNotifier extends StateNotifier<FloatingButtonState> {
   FloatingButtonStateNotifier(super.state);
 
   @override
+  bool needToMakeButtonBigger = false;
+
+  @override
   bool updateShouldNotify(old, current) {
     // statte에 할당할 때 넘겨주는 새로운 state와 기존의 value에 들어있는 state를 비교하는 함수
     return super.updateShouldNotify(old, current); // 같지 않다면 true
@@ -19,14 +22,19 @@ class FloatingButtonStateNotifier extends StateNotifier<FloatingButtonState> {
   }
 
   void onTapButton() {
-    // state = state
-    //   ..isExpanded = !state.isExpanded
-    //   ..isSmall = true;
+    final isExpanded = state.isExpanded;
+    final isSmall = state.isSmall;
 
-    // 다른 객체를 넣어줌
-    // freezed 만들어서 copywith도 쓸 수 있지만
-    // 값 2개다 바꿔야하므로 그냥 이렇게 만들어줌
-    state = FloatingButtonState(!state.isExpanded, true);
+    state = state.copyWith(isExpanded: !state.isExpanded, isSmall: needToMakeButtonBigger ? false : true);
+
+    // 초기화
+    if (needToMakeButtonBigger) {
+      needToMakeButtonBigger = false;
+    }
+    // 버튼 커져있는 상태 && expand되지 않은 (layer 띄운) 상태
+    if (!isSmall && !isExpanded) {
+      needToMakeButtonBigger = true;
+    }
   }
 
   void changeButtonSize(bool isSmall) {
