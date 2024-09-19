@@ -2,6 +2,7 @@ import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/entity/post/vo_product_post.dart';
 import 'package:fast_app_base/entity/product/product_status.dart';
 import 'package:fast_app_base/entity/product/vo_product.dart';
+import 'package:fast_app_base/entity/user/vo_address.dart';
 import 'package:fast_app_base/entity/user/vo_user.dart';
 
 String picSum(int id) => 'https://picsum.photos/id/$id/200/200';
@@ -49,9 +50,46 @@ final product2 = Product(
     picSum(503),
   ],
 );
-final post1 = ProductPost(product1.user, product1, '글의 내용1', '서울시 관악구1', 3, 2, DateTime.now().subtract(30.minutes));
-final post2 = ProductPost(product2.user, product2, '글의 내용2', '서울시 관악구2', 2, 3, DateTime.now().subtract(5.minutes));
-final post3 = ProductPost(product2.user, product2, '글의 내용3', '서울시 관악구3', 1, 1, DateTime.now().subtract(10.seconds));
+final product3 = Product(
+  user2,
+  '아이폰5',
+  50000,
+  '지저분해요',
+  ProductStatus.booked,
+  [
+    picSum(600),
+    picSum(601),
+    picSum(602),
+    picSum(603),
+  ],
+);
+final post1 = ProductPost(
+  product1.user,
+  product1,
+  '글의 내용1',
+  const Address('서울시 관악구1', '신림동'),
+  3,
+  2,
+  DateTime.now().subtract(30.minutes),
+);
+final post2 = ProductPost(
+  product2.user,
+  product2,
+  '글의 내용2',
+  const Address('서울시 관악구2', '청룡동'),
+  2,
+  3,
+  DateTime.now().subtract(5.minutes),
+);
+final post3 = ProductPost(
+  product3.user,
+  product3,
+  '글의 내용3',
+  const Address('서울시 관악구3', '대학동'),
+  1,
+  1,
+  DateTime.now().subtract(10.seconds),
+);
 
 final postList = [
   post1,
