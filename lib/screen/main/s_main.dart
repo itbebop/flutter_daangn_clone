@@ -18,7 +18,7 @@ class MainScreen extends ConsumerStatefulWidget {
 }
 
 class MainScreenState extends ConsumerState<MainScreen> with SingleTickerProviderStateMixin {
-  TabItem get _currentTab => ref.read(currentTabProvider);
+  TabItem get _currentTab => ref.watch(currentTabProvider);
   // ref를 사용하려면 상위 트리에서 Provider가 존재해야함
 
   final tabs = TabItem.values;
@@ -120,6 +120,8 @@ class MainScreenState extends ConsumerState<MainScreen> with SingleTickerProvide
   }
 
   List<BottomNavigationBarItem> navigationBarItems(BuildContext context) {
+    // final currentTab = ref.watch(currentTabProvider);
+    // final currentIndex = tabs.indexOf(currentTab);
     return tabs
         .mapIndexed(
           (tab, index) => tab.toNavigationBarItem(
