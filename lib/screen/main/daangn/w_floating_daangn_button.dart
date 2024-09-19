@@ -3,6 +3,7 @@ import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/widget/animated_width_collapse.dart';
 import 'package:fast_app_base/screen/main/daangn/w_floating_daagn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/s_main.dart';
+import 'package:fast_app_base/screen/main/tab/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -58,7 +59,15 @@ class FloatingDaangnButton extends ConsumerWidget {
               ),
               Tap(
                 onTap: () {
-                  ref.read(floatingButtonStateProvider.notifier).onTapButton(); // button이 눌러진 것만 알려주고 로직은 따로
+                  final currentTab = ref.read(currentTabProvider);
+                  switch (currentTab) {
+                    case TabItem.home:
+                    case TabItem.localLife:
+                    case TabItem.nearMe:
+                    case TabItem.chat:
+                    case TabItem.my:
+                  }
+                  ref.read(floatingButtonStateProvider.notifier).toggleMenu(); // button이 눌러진 것만 알려주고 로직은 따로
                 },
                 child: AnimatedContainer(
                   duration: duration,
