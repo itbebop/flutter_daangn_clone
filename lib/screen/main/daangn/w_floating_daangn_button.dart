@@ -76,10 +76,10 @@ class FloatingDaangnButton extends ConsumerWidget {
                     ),
                     AnimatedWidthCollapse(visible: !isSmall, duration: duration, child: '글쓰기'.text.make()),
                   ]),
-                ).pOnly(
-                  bottom: MainScreenState.bottomNavigationBarHeight + context.viewPaddingBottom + 10,
-                  right: 20,
                 ),
+              ).pOnly(
+                bottom: MainScreenState.bottomNavigationBarHeight + context.viewPaddingBottom + 10,
+                right: 20,
               ),
             ],
           ),
