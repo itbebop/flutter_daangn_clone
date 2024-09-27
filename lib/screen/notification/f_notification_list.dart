@@ -1,8 +1,6 @@
 import 'package:fast_app_base/screen/notification/provider/notification_provider.dart';
-import 'package:fast_app_base/screen/notification/vo/notification_dummies.dart';
 import 'package:fast_app_base/screen/notification/w_notification_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationFragment extends HookConsumerWidget {
@@ -15,7 +13,7 @@ class NotificationFragment extends HookConsumerWidget {
     return list == null
         ? const Center(child: CircularProgressIndicator())
         : ListView(
-            children: notificationList.map((e) => NotificationItemWidget(onTap: () {}, notification: e)).toList(),
+            children: list.map((e) => NotificationItemWidget(onTap: () {}, notification: e)).toList(),
           );
   }
 }
