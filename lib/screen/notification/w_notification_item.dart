@@ -1,4 +1,5 @@
 import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/screen/notification/provider/notification_provider.dart';
 import 'package:fast_app_base/screen/notification/s_notification.dart';
 import 'package:fast_app_base/screen/notification/vo/vo_notification.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,7 +47,19 @@ class _NotificationItemWidgetState extends ConsumerState<NotificationItemWidget>
                   width: iconWidth,
                 ),
                 Expanded(child: widget.notification.title.text.bold.make()),
-                if (isEditMode) IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                if (isEditMode)
+                  IconButton(
+                      onPressed: () {
+                        // item 내부라서 list가 존재할 수밖에 없지만
+                        // 혹시 모를 경우 대비 null 체크해주는 게 좋음
+                        final list = ref.read(notificationProvider)!;
+                        // list.removeWhere(); // 원래는 removeWhere로 아이디를 받아지워야
+                        list.remove(widget.notification);
+                        // ref.read(notificationProvider.notifier).state = list;
+                        // 이렇게 넘기면 동일한 객체라서 변화가 있는지 감지를 못함
+                        ref.read(notificationProvider.notifier).state = List.of(list);
+                      },
+                      icon: const Icon(Icons.delete)),
               ],
             ),
             height10,
