@@ -61,6 +61,7 @@ final product3 = Product(
   ],
 );
 final post1 = SimpleProductPost(
+  1,
   product1.user,
   product1,
   '글의 내용1',
@@ -70,6 +71,7 @@ final post1 = SimpleProductPost(
   DateTime.now().subtract(30.minutes),
 );
 final post2 = SimpleProductPost(
+  2,
   product2.user,
   product2,
   '글의 내용2',
@@ -79,6 +81,7 @@ final post2 = SimpleProductPost(
   DateTime.now().subtract(5.minutes),
 );
 final post3 = SimpleProductPost(
+  3,
   product3.user,
   product3,
   '글의 내용3',
