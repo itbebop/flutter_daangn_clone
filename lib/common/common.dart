@@ -24,6 +24,7 @@ export 'widget/w_height_and_width.dart';
 export 'widget/w_line.dart';
 export 'widget/w_tap.dart';
 export 'widget/widget_constant.dart';
+export 'package:fast_app_base/common/widget/w_vertical_line.dart';
 
 const defaultFontStyle = GoogleFonts.ptSerif;
 
