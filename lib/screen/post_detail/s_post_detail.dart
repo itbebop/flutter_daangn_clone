@@ -5,6 +5,7 @@ import 'package:fast_app_base/entity/post/vo_simple_product_post.dart';
 import 'package:fast_app_base/screen/post_detail/provider/product_post_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PostDetailScreen extends ConsumerWidget {
   final SimpleProductPost? simpleProductPost;
@@ -37,12 +38,42 @@ class _PostDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const SingleChildScrollView(
+        SingleChildScrollView(
           child: Column(
-            children: [],
+            children: [
+              SizedBox(
+                height: context.deviceWidth,
+                child: Stack(
+                  children: [
+                    PageView(
+                      children: simpleProductPost.product.images
+                          .map(
+                            (url) => CachedNetworkImage(
+                              imageUrl: url,
+                              fit: BoxFit.fill,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                    const Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SmoothPageIndicator(
+                          controller: pageController, // PageController
+                          count: simpleProductPost.product.images.length,
+                          effect: JumpingDotEffect(
+                            verticalOffset: 10,
+                            dotColor: Colors.white54,
+                            activeDotColor: Colors.black45,
+                          ), // your preferred effect
+                          onDotClicked: (index) {}),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
         ),
-        AppBar(),
+        const _AppBar(),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -51,6 +82,36 @@ class _PostDetail extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class _AppBar extends StatelessWidget {
+  const _AppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60 + context.statusBarHeight,
+      child: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Nav.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.share),
+            color: Colors.white,
+          ),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert), color: Colors.white),
+        ],
+      ),
     );
   }
 }
