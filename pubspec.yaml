@@ -73,6 +73,7 @@ dependencies:
   json_annotation: ^4.8.0
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.5.2
+  smooth_page_indicator: ^1.2.0+3
 
   #network
   dio: ^5.0.0
